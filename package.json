@@ -21,7 +21,7 @@
     "url": "https://github.com/jdgc5/bookmarks-electron/issues"
   },
   "homepage": "https://github.com/jdgc5/bookmarks-electron#readme",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^29.1.6"
   }
 }
