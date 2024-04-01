@@ -1,0 +1,27 @@
+{
+  "name": "marcadores",
+  "version": "1.0.0",
+  "description": "programa ejemplo para marcadores",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdgc5/bookmarks-electron.git"
+  },
+  "keywords": [
+    "electron",
+    "app",
+    "desktop"
+  ],
+  "author": "J.David Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdgc5/bookmarks-electron/issues"
+  },
+  "homepage": "https://github.com/jdgc5/bookmarks-electron#readme",
+  "dependencies": {
+    "electron": "^29.1.6"
+  }
+}
