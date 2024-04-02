@@ -10,6 +10,7 @@ class Marcadores{
         this.parser = new DOMParser();
 
         this.agregarEventListeners();
+        this.visualizarMarcadores();
     }
 
     agregarEventListeners(){
@@ -17,16 +18,17 @@ class Marcadores{
             this.marcadorBoton.disabled = !this.marcadorUrl.validity.valid;
         });
 
-        this.marcadorBoton.addEventListener('submit', this.crearMarcador.bind(this))
+        this.formularioCreacionMarcadores.addEventListener('submit', this.crearMarcador.bind(this))
     }
 
     crearMarcador(evento){
         evento.preventDefault();
-        const url = this.marcadorUrl.nodeValue;
+        const url = this.marcadorUrl.value;
         fetch(url).then(respuesta => respuesta.text())
-        .then(this.extraerContenido).then(this.encontrarTituloPagina)
+        .then(this.extraerContenido.bind(this)).then(this.encontrarTituloPagina)
         .then(titulo => this.almacenarMarcador(url,titulo))
-        .then(this.limpiarFormulario).then(this.visualizarMarcadores)
+        .then(this.limpiarFormulario.bind(this)).then(this.visualizarMarcadores.bind(this))
+        .catch(error => this.reportarError(error, url));
 
     }
 
@@ -43,19 +45,27 @@ class Marcadores{
     limpiarFormulario(){
         this.marcadorUrl.value = null;
     }
-    obtenerEnlaces(){
+    obtenerMarcadores(){
         return Object.keys(localStorage).map(k => JSON.parse(localStorage.getItem(k)));
     }
 
-    generarMarcador(){
+    generarMarcador(marcador){
         return `<div class='enlace'><h3>${marcador.titulo}</h3>
         <p><a href="${marcador.url}">${marcador.url}</a></p>
         </div>`;
     }
 
     visualizarMarcadores(){
-        let enlaces = this.obtenerEnlaces();
-        let html = null;
-
+        let marcadores = this.obtenerMarcadores();
+        let html = marcadores.map(this.generarMarcador).join('');
+        this.marcadores.innerHTML = html 
+    }
+    reportarError(error,url){
+        this.mensajeError.innerHTML = `Ocurrio un error al intentar acceder a ${url}: ${error}`;
+        setTimeout(()=>{
+            this.mensajeError.innerHTML = null;
+        },5000)
     }
 }
+
+new Marcadores();
