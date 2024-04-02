@@ -44,10 +44,18 @@ class Marcadores{
         this.marcadorUrl.value = null;
     }
     obtenerEnlaces(){
-        
+        return Object.keys(localStorage).map(k => JSON.parse(localStorage.getItem(k)));
+    }
+
+    generarMarcador(){
+        return `<div class='enlace'><h3>${marcador.titulo}</h3>
+        <p><a href="${marcador.url}">${marcador.url}</a></p>
+        </div>`;
     }
 
     visualizarMarcadores(){
-        
+        let enlaces = this.obtenerEnlaces();
+        let html = null;
+
     }
 }
