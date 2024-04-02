@@ -17,6 +17,10 @@ class Marcadores{
         this.marcadorUrl.addEventListener('keyup', () =>{
             this.marcadorBoton.disabled = !this.marcadorUrl.validity.valid;
         });
+        this.eliminarMarcadores.addEventListener('click', ()=>{
+            this.accionEliminarMarcadores();
+            this.visualizarMarcadores();
+        })
 
         this.formularioCreacionMarcadores.addEventListener('submit', this.crearMarcador.bind(this))
     }
@@ -47,6 +51,9 @@ class Marcadores{
     }
     obtenerMarcadores(){
         return Object.keys(localStorage).map(k => JSON.parse(localStorage.getItem(k)));
+    }
+    accionEliminarMarcadores(){
+        localStorage.clear();
     }
 
     generarMarcador(marcador){
